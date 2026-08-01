@@ -1,0 +1,21 @@
+{
+  "description": "Multi-language Python + TypeScript repository",
+  "entries": [
+    {"path": "README.md", "type": "blob", "size": 500},
+    {"path": "LICENSE", "type": "blob", "size": 1000},
+    {"path": "requirements.txt", "type": "blob", "size": 200},
+    {"path": "package.json", "type": "blob", "size": 300},
+    {"path": "src", "type": "tree"},
+    {"path": "src/main.py", "type": "blob", "size": 800},
+    {"path": "src/utils.py", "type": "blob", "size": 400},
+    {"path": "frontend", "type": "tree"},
+    {"path": "frontend/app.ts", "type": "blob", "size": 600},
+    {"path": "frontend/app.test.ts", "type": "blob", "size": 300},
+    {"path": "tests", "type": "tree"},
+    {"path": "tests/test_main.py", "type": "blob", "size": 250},
+    {"path": ".github", "type": "tree"},
+    {"path": ".github/workflows", "type": "tree"},
+    {"path": ".github/workflows/ci.yml", "type": "blob", "size": 150},
+    {"path": "Dockerfile", "type": "blob", "size": 120}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "resources": {
+    "core": {
+      "limit": 60,
+      "remaining": 59,
+      "reset": 1700000000,
+      "used": 1
+    }
+  }
+}

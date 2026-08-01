@@ -1,0 +1,23 @@
+{
+  "description": "Repository with vendor, binary, and contest paths",
+  "entries": [
+    {"path": "contest", "type": "tree"},
+    {"path": "contest/scoring.py", "type": "blob", "size": 100},
+    {"path": "latest", "type": "tree"},
+    {"path": "latest/release.py", "type": "blob", "size": 100},
+    {"path": "testing-utils", "type": "tree"},
+    {"path": "testing-utils/helper.py", "type": "blob", "size": 100},
+    {"path": "assets", "type": "tree"},
+    {"path": "assets/logo.png", "type": "blob", "size": 5000},
+    {"path": "vendor", "type": "tree"},
+    {"path": "vendor/lib.rb", "type": "blob", "size": 999},
+    {"path": "node_modules", "type": "tree"},
+    {"path": "node_modules/lodash/index.js", "type": "blob", "size": 999},
+    {"path": "deep", "type": "tree"},
+    {"path": "deep/n1", "type": "tree"},
+    {"path": "deep/n1/n2", "type": "tree"},
+    {"path": "deep/n1/n2/n3", "type": "tree"},
+    {"path": "deep/n1/n2/n3/n4", "type": "tree"},
+    {"path": "deep/n1/n2/n3/n4/module.py", "type": "blob", "size": 50}
+  ]
+}

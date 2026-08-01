@@ -1,0 +1,11 @@
+{
+  "sha": "abc123",
+  "url": "https://api.github.com/repos/pallets/flask/git/trees/abc123",
+  "tree": [
+    {"path": "README.md", "mode": "100644", "type": "blob", "sha": "aaa", "size": 1000},
+    {"path": "src", "mode": "040000", "type": "tree", "sha": "bbb"},
+    {"path": "src/flask", "mode": "040000", "type": "tree", "sha": "ccc"},
+    {"path": "src/flask/app.py", "mode": "100644", "type": "blob", "sha": "ddd", "size": 5000}
+  ],
+  "truncated": false
+}

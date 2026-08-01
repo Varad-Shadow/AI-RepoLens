@@ -1,0 +1,6 @@
+{
+  "sha": "abc123",
+  "url": "https://api.github.com/repos/huge/huge/git/trees/abc123",
+  "tree": [],
+  "truncated": true
+}
