@@ -39,13 +39,25 @@ class NetworkError(RepoLensError):
     exit_code = 5
 
 
-class MissingAPIKeyError(RepoLensError):
+class ConfigurationError(RepoLensError):
+    """Raised when configuration is invalid."""
+
+    exit_code = 1
+
+
+class MissingAPIKeyError(ConfigurationError):
     """Raised when LLM API key is required but not configured."""
 
     exit_code = 6
 
 
-class ConfigurationError(RepoLensError):
-    """Raised when configuration is invalid."""
+class LLMError(RepoLensError):
+    """Raised when the configured LLM provider fails."""
+
+    exit_code = 1
+
+
+class SchemaValidationError(RepoLensError):
+    """Raised when LLM output cannot be validated."""
 
     exit_code = 1

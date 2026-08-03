@@ -96,3 +96,15 @@ def test_execute_with_retry_abuse_detection(mock_sleep: object) -> None:
     response = execute_with_retry(request_fn, max_retries=3)
     assert response.status_code == 200
     assert calls["count"] == 3
+
+
+def test_raise_for_response_429_rate_limit() -> None:
+    response = httpx.Response(429, text="too many requests")
+    with pytest.raises(RateLimitError, match="rate limit exhausted"):
+        raise_for_response(response)
+
+
+def test_raise_for_response_secondary_rate_limit_body() -> None:
+    response = httpx.Response(403, text="API rate limit exceeded")
+    with pytest.raises(RateLimitError, match="rate limit exhausted"):
+        raise_for_response(response)

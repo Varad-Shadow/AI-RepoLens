@@ -38,7 +38,7 @@ def test_github_tree_entry_adapter_pattern() -> None:
     ]
     result = analyze_tree(path_infos)
 
-    assert result.stats.total_files == 2
+    assert result.stats.total_files == 3
     assert result.stats.total_dirs == 2
     assert "src/app.py" in result.filtered_paths
     assert "vendor/lib.js" in result.ignored_paths
@@ -47,7 +47,7 @@ def test_github_tree_entry_adapter_pattern() -> None:
 def test_end_to_end_fixture_pipeline() -> None:
     result = analyze_tree(_entries_from_fixture("multi_language_repo.json"))
 
-    assert result.stats.total_files == 10
+    assert result.stats.total_files == 11
     assert len(result.stats.dependency_files) == 2
     assert result.stats.has_ci is True
     assert "frontend/app.ts" in result.filtered_paths

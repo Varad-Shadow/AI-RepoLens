@@ -22,9 +22,14 @@ _DEFAULT_MAX_RETRIES = 3
 
 
 def is_rate_limit_exhausted(response: httpx.Response) -> bool:
-    """Return True when GitHub reports no remaining rate-limit quota."""
+    """Return True when GitHub reports primary or secondary rate limiting."""
     remaining = response.headers.get("X-RateLimit-Remaining", "1")
-    return response.status_code == 403 and remaining == "0"
+    body = response.text.lower() if response.content else ""
+    return (
+        response.status_code == 429
+        or (response.status_code == 403 and remaining == "0")
+        or (response.status_code == 403 and "rate limit" in body)
+    )
 
 
 def is_abuse_detection(response: httpx.Response) -> bool:

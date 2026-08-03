@@ -1,0 +1,31 @@
+{
+  "description": "Complex repository for scoring integration tests",
+  "entries": [
+    {"path": "README.md", "type": "blob", "size": 700},
+    {"path": "pyproject.toml", "type": "blob", "size": 500},
+    {"path": "package.json", "type": "blob", "size": 450},
+    {"path": "app.py", "type": "blob", "size": 50000},
+    {"path": "src", "type": "tree"},
+    {"path": "src/app.py", "type": "blob", "size": 900},
+    {"path": "src/api", "type": "tree"},
+    {"path": "src/api/app.py", "type": "blob", "size": 1000},
+    {"path": "src/api/routes", "type": "tree"},
+    {"path": "src/api/routes/users", "type": "tree"},
+    {"path": "src/api/routes/users/service.py", "type": "blob", "size": 1200},
+    {"path": "backend", "type": "tree"},
+    {"path": "backend/app.py", "type": "blob", "size": 800},
+    {"path": "services", "type": "tree"},
+    {"path": "services/app.py", "type": "blob", "size": 800},
+    {"path": "tests", "type": "tree"},
+    {"path": "tests/app.py", "type": "blob", "size": 500},
+    {"path": "config", "type": "tree"},
+    {"path": "config/settings.py", "type": "blob", "size": 300},
+    {"path": "assets", "type": "tree"},
+    {"path": "assets/logo.png", "type": "blob", "size": 4096},
+    {"path": "src/generated", "type": "tree"},
+    {"path": "src/generated/client.py", "type": "blob", "size": 200},
+    {"path": "node_modules", "type": "tree"},
+    {"path": "node_modules/lib", "type": "tree"},
+    {"path": "node_modules/lib/index.js", "type": "blob", "size": 300}
+  ]
+}

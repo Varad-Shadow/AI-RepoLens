@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RepoLens</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; max-width: 840px; }
+    label, input { display: block; width: 100%; }
+    input[type="text"] { padding: .65rem; margin: .4rem 0 1rem; }
+    button { padding: .65rem 1rem; }
+    .error { color: #9f1239; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>RepoLens</h1>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="post" action="/analyze">
+    <label for="repo_url">GitHub repository URL</label>
+    <input id="repo_url" name="repo_url" type="text" placeholder="https://github.com/owner/repo" required>
+    <label><input name="interview" type="checkbox"> Include interview questions</label>
+    <button type="submit">Analyze</button>
+  </form>
+</body>
+</html>

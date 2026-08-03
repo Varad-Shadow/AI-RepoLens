@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RepoLens Report</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; max-width: 960px; line-height: 1.5; }
+    code { background: #f3f4f6; padding: .1rem .25rem; }
+    h1, h2 { line-height: 1.2; }
+  </style>
+</head>
+<body>
+  <p><a href="/">Analyze another repository</a></p>
+  <main aria-label="RepoLens report for {{ repo_url }}">
+    {{ report_html|safe }}
+  </main>
+</body>
+</html>

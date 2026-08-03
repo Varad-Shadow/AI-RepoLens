@@ -8,7 +8,7 @@ from typing import Literal
 
 from dotenv import load_dotenv
 
-from repolens.exceptions import ConfigurationError
+from repolens.exceptions import ConfigurationError, MissingAPIKeyError
 
 load_dotenv()
 
@@ -95,7 +95,7 @@ class Config:
     def require_llm_api_key(self) -> str:
         """Return LLM API key or raise if missing."""
         if not self.llm_api_key:
-            raise ConfigurationError(
+            raise MissingAPIKeyError(
                 "LLM_API_KEY is required for AI analysis. "
                 "Set it in .env or use --no-ai to skip LLM analysis."
             )

@@ -238,7 +238,8 @@ class GitHubClient:
             raise NetworkError(f"Unable to decode content for {path!r}.")
 
         try:
-            return base64.b64decode(content, validate=True)
+            cleaned = "".join(str(content).split())
+            return base64.b64decode(cleaned, validate=True)
         except (ValueError, TypeError) as exc:
             raise NetworkError(f"Unable to decode content for {path!r}.") from exc
 

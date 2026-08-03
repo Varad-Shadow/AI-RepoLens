@@ -63,3 +63,26 @@ class DeterministicAnalysisResult:
     files: list[FileEntry] = field(default_factory=list)
     filtered_paths: list[str] = field(default_factory=list)
     ignored_paths: list[str] = field(default_factory=list)
+
+
+Confidence = Literal["confirmed", "likely", "possible"]
+
+
+@dataclass(frozen=True)
+class TechDetection:
+    """Evidence-backed technology or framework detection."""
+
+    name: str
+    confidence: Confidence
+    evidence: list[str]
+
+
+@dataclass(frozen=True)
+class ScoredFile:
+    """A file ranked for human/LLM review."""
+
+    path: str
+    score: float
+    reasons: list[str]
+    category: FileCategory
+    size_bytes: int

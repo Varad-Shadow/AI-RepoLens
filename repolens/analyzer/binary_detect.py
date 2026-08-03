@@ -122,8 +122,10 @@ def is_binary_content(sample: bytes) -> bool:
     if b"\x00" in sample:
         return True
 
-    # UTF-16 BOM suggests binary/text hybrid handled explicitly elsewhere.
-    if sample.startswith(b"\xff\xfe") or sample.startswith(b"\xfe\xff"):
+    if sample.startswith((b"\xef\xbb\xbf", b"\xff\xfe", b"\xfe\xff")):
+        return False
+
+    if len(sample) < 4:
         return False
 
     text_bytes = bytes(range(32, 127)) + b"\n\r\t"
