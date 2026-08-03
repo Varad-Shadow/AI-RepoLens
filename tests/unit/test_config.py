@@ -46,12 +46,12 @@ def test_default_config_values() -> None:
 def test_custom_config_from_env(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("MAX_FILES_ANALYZED", "20")
     monkeypatch.setenv("LOG_LEVEL", "DEBUG")
-    monkeypatch.setenv("GITHUB_TOKEN", "ghp_test")
+    monkeypatch.setenv("GITHUB_TOKEN", "test-github-token")
 
     config = Config.from_env()
     assert config.max_files_analyzed == 20
     assert config.log_level == "DEBUG"
-    assert config.github_token == "ghp_test"
+    assert config.github_token == "test-github-token"
 
 
 def test_invalid_max_files_raises_clear_error(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -85,9 +85,9 @@ def test_require_llm_api_key_raises_when_missing() -> None:
 
 
 def test_require_llm_api_key_returns_key(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("LLM_API_KEY", "sk-test")
+    monkeypatch.setenv("LLM_API_KEY", "test-llm-key")
     config = Config.from_env()
-    assert config.require_llm_api_key() == "sk-test"
+    assert config.require_llm_api_key() == "test-llm-key"
 
 
 def test_empty_string_env_uses_default(monkeypatch: pytest.MonkeyPatch) -> None:

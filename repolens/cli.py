@@ -5,11 +5,13 @@ from __future__ import annotations
 import argparse
 import logging
 import sys
+from pathlib import Path
 
 from repolens import __version__
 from repolens.config import Config
 from repolens.exceptions import ConfigurationError, InvalidURLError, RepoLensError
 from repolens.github.url_parser import parse_github_url
+from repolens.pipeline import run_analysis
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -83,19 +85,12 @@ def _configure_logging(verbose: bool, config: Config) -> None:
         format="%(levelname)s: %(message)s",
         stream=sys.stderr,
     )
+    if not verbose:
+        logging.getLogger("httpx").setLevel(logging.WARNING)
+        logging.getLogger("httpcore").setLevel(logging.WARNING)
 
 
-def _run_analyze(args: argparse.Namespace) -> int:
-    """Run the analyze subcommand. Pipeline wired in later phases."""
-    try:
-        config = Config.from_env(no_ai=args.no_ai)
-    except ConfigurationError as exc:
-        print(f"Configuration error: {exc.message}", file=sys.stderr)
-        return exc.exit_code
-
-    _configure_logging(args.verbose, config)
-
-    # CLI overrides applied after config load
+def _apply_cli_overrides(args: argparse.Namespace, config: Config) -> int | None:
     if args.max_files is not None:
         if args.max_files < 1:
             print("Configuration error: --max-files must be >= 1", file=sys.stderr)
@@ -106,6 +101,26 @@ def _run_analyze(args: argparse.Namespace) -> int:
             print("Configuration error: --max-file-size must be >= 1", file=sys.stderr)
             return 1
         object.__setattr__(config, "max_file_size_bytes", args.max_file_size)
+    return None
+
+
+def _default_output_path(repo: str, output_format: str) -> Path:
+    suffix = "json" if output_format == "json" else "md"
+    return Path(f"{repo}_report.{suffix}")
+
+
+def _run_analyze(args: argparse.Namespace) -> int:
+    try:
+        config = Config.from_env(no_ai=args.no_ai)
+    except ConfigurationError as exc:
+        print(f"Configuration error: {exc.message}", file=sys.stderr)
+        return exc.exit_code
+
+    _configure_logging(args.verbose, config)
+
+    override_error = _apply_cli_overrides(args, config)
+    if override_error is not None:
+        return override_error
 
     try:
         parsed = parse_github_url(args.repository_url)
@@ -113,14 +128,28 @@ def _run_analyze(args: argparse.Namespace) -> int:
         print(exc.message, file=sys.stderr)
         return exc.exit_code
 
-    logging.info("RepoLens analyze — analysis pipeline starts in Phase 3+")
-    logging.info("Parsed repository: %s/%s (ref=%s)", parsed.owner, parsed.repo, parsed.ref)
-    logging.info("Options: no_ai=%s, interview=%s, format=%s", args.no_ai, args.interview, args.format)
-    print(
-        f"Validated {parsed.owner}/{parsed.repo}. "
-        "Full analysis pipeline will be available after Phase 3+.",
-        file=sys.stderr,
+    if not args.no_ai:
+        try:
+            config.require_llm_api_key()
+        except RepoLensError as exc:
+            print(exc.message, file=sys.stderr)
+            return exc.exit_code
+
+    result = run_analysis(
+        args.repository_url,
+        config=config,
+        output_format=args.format,
+        include_interview=args.interview,
+        no_ai=args.no_ai,
     )
+
+    if args.output == "-":
+        print(result.content)
+        return 0
+
+    output_path = Path(args.output) if args.output else _default_output_path(parsed.repo, args.format)
+    output_path.write_text(result.content, encoding="utf-8")
+    print(f"Report written to {output_path}", file=sys.stderr)
     return 0
 
 
