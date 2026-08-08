@@ -1,4 +1,4 @@
-## RepoLens
+# RepoLens
 
 RepoLens is a CLI-first Python tool that explains public GitHub repositories using deterministic static analysis plus an optional LLM pass. It accepts a GitHub repository URL, fetches metadata and a repository tree through the GitHub API, filters and classifies files, ranks the files that are most useful to read first, detects dependencies and technologies, builds a bounded and sanitized AI context, validates structured LLM output, and produces a Markdown report.
 
